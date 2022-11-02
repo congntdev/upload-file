@@ -3,7 +3,6 @@ package com.example.filepractice2.model.entity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Data
 @Accessors(chain = true)
-public class UserEntity extends BaseEntity{
+public class User extends BaseEntity{
 
     private String username;
     private String password;

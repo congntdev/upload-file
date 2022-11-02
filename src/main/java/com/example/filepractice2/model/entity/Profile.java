@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Entity
 @Data
 @Accessors(chain = true)
-public class ProfileEntity extends BaseEntity{
+public class Profile extends BaseEntity{
 
     @Column(name = "full_name")
     private String name;

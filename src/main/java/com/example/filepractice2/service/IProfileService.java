@@ -1,6 +1,6 @@
 package com.example.filepractice2.service;
 
-import com.example.filepractice2.model.entity.ProfileEntity;
+import com.example.filepractice2.model.entity.Profile;
 import com.example.filepractice2.model.request.ProfileRequest;
 import com.example.filepractice2.model.request.UserLogin;
 import com.example.filepractice2.model.response.ProfileResponse;
@@ -11,15 +11,15 @@ import java.util.List;
 
 public interface IProfileService {
 
-    ProfileEntity getProfile(Long id);
+    Profile getProfile(Long id);
 
-    List<ProfileEntity> getAllProfile();
+    List<Profile> getAllProfile();
 
     ProfileResponse getProfileByUser(UserLogin login);
 
-    ProfileEntity creatProfile(Long id, ProfileRequest request);
+    Profile creatProfile(Long id, ProfileRequest request);
 
-    ProfileEntity uploadFile(Long id, MultipartFile file) throws Exception;
+    Profile uploadFile(Long id, MultipartFile file) throws Exception;
 
     Resource loadFile(Long id) throws Exception;
 
