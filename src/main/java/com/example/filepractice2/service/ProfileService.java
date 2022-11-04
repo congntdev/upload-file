@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class ProfileService implements IProfileService{
+public class ProfileService implements IProfileService {
 
     @Autowired
     private ProfileRepository profileRepository;
@@ -71,7 +71,7 @@ public class ProfileService implements IProfileService{
     }
 
     @Override
-    public Profile uploadFile(Long id, MultipartFile file) throws Exception {
+    public String uploadFile(MultipartFile file) throws Exception {
         if (file == null || file.getOriginalFilename() == null) {
             throw new Exception("File is not null");
         }
@@ -79,19 +79,13 @@ public class ProfileService implements IProfileService{
                 .cleanPath(Integer.valueOf(LocalDateTime.now().getNano()).toString())
                 + ".png";
         try {
-            Profile profile = profileRepository.findProfileById(id).orElseThrow(() ->
-                    new Exception("Profile is not found with id: " + id)
-            );
             if (fileName.contains("..")) {
                 throw new Exception("Sorry! Filename contains invalid path sequence " + fileName);
             }
             Path dir = Paths.get(storageLocation);
             Path targetLocation = dir.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            Profile profileFile = profileRepository.getReferenceById(id);
-            profileFile.setAvatarUrl(storageLocation + fileName);
-            profileRepository.save(profileFile);
-            return profile;
+            return storageLocation + "/" + fileName;
         } catch (IOException ex) {
             throw new Exception("Could not store file" + fileName + ". Please try again!", ex);
         }
@@ -113,5 +107,16 @@ public class ProfileService implements IProfileService{
         } catch (Exception e) {
             throw new Exception("Load file fail");
         }
+    }
+
+    @Override
+    public Profile create(ProfileRequest request) {
+        Profile profile = new Profile();
+        profile.setName(request.getName());
+        profile.setDateOfBirth(request.getDateOfBirth());
+        profile.setEmail(request.getEmail());
+        profile.setUserId(request.getUserId());
+        profileRepository.save(profile);
+        return profile;
     }
 }

@@ -45,8 +45,8 @@ public class ProfileController {
     }
 
     @PutMapping("/image/{id}")
-    ResponseEntity<Profile> upImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws Exception {
-        return ResponseEntity.ok(service.uploadFile(id, file));
+    ResponseEntity<String> upImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws Exception {
+        return ResponseEntity.ok(service.uploadFile(file));
     }
 
     @GetMapping("/image/{id}")

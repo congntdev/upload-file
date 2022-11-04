@@ -19,8 +19,11 @@ public interface IProfileService {
 
     Profile creatProfile(Long id, ProfileRequest request);
 
-    Profile uploadFile(Long id, MultipartFile file) throws Exception;
+    String uploadFile(MultipartFile file) throws Exception;
 
     Resource loadFile(Long id) throws Exception;
+
+    Profile create(ProfileRequest request);
+
 
 }
